@@ -1,0 +1,23 @@
+<assembly xmlns="http://maven.apache.org/ASSEMBLY/2.2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://maven.apache.org/ASSEMBLY/2.2.0 https://maven.apache.org/xsd/assembly-2.2.0.xsd">
+    <id>dist</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+    <includeBaseDirectory>false</includeBaseDirectory>
+    <fileSets>
+        <fileSet>
+            <outputDirectory>.</outputDirectory>
+            <includes>
+                <include>bin/server.sh</include>
+                <include>bin/dist-*.sh</include>
+                <include>config/**</include>
+                <include>lib/**</include>
+                <include>.mvn/wrapper/maven-wrapper.properties</include>
+                <include>mvnw</include>
+                <include>mvnw.cmd</include>
+            </includes>
+            <fileMode>0755</fileMode>
+        </fileSet>
+    </fileSets>
+</assembly>
