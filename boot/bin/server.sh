@@ -112,8 +112,6 @@ fi
 
 JAVA_OPTIONS="$COLLECTED_JAVA_OPTIONS_FILE $JAVA_OPTIONS -javaagent:$JANUSGRAPH_LIB/jamm-0.3.3.jar"
 
-set -x
-
 if [[ -z "$JANUSGRAPH_JAR" ]]; then
   if [[ -r "$JANUSGRAPH_HOME/jar/server.jar" ]]; then
     JANUSGRAPH_JAR="$JANUSGRAPH_HOME/jar/server.jar"
@@ -225,7 +223,7 @@ start() {
       exit 1
     fi
 
-    $JAVA -Dlogging.config=$JANUSGRAPH_CONF/logback.xml $JAVA_OPTIONS -jar "$JANUSGRAPH_JAR" >> "$LOG_FILE" 2>&1 &
+    $JAVA -Dlogging.config=$JANUSGRAPH_CONF/logback.xml $JAVA_OPTIONS -jar "$JANUSGRAPH_JAR" >> /dev/null 2>&1 &
     PID=$!
     disown $PID
     echo $PID > "$PID_FILE"
@@ -243,7 +241,7 @@ start() {
       exit 1
     fi
 
-    su -c "$JAVA -Dlogging.config=$JANUSGRAPH_CONF/logback.xml $JAVA_OPTIONS  -jar "$JANUSGRAPH_JAR" >> \"$LOG_FILE\" 2>&1 & echo \$! "  "$RUNAS" > "$PID_FILE"
+    su -c "$JAVA -Dlogging.config=$JANUSGRAPH_CONF/logback.xml $JAVA_OPTIONS  -jar "$JANUSGRAPH_JAR" >> /dev/null 2>&1 & echo \$! "  "$RUNAS" > "$PID_FILE"
     chown "$RUNAS" "$PID_FILE"
   fi
 

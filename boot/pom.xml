@@ -107,4 +107,16 @@
         </plugins>
     </build>
 
+    <profiles>
+        <profile>
+            <id>jg-actuator</id>
+            <dependencies>
+                <dependency>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-actuator</artifactId>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
+
 </project>

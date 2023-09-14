@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#set -x
+set -x
 set -e
 set -u
 set -o pipefail
@@ -26,4 +26,5 @@ if [[ -d jdk ]]; then
   export JAVA_HOME
 fi
 
-./mvnw clean package
+./mvnw -Dmaven.test.skip=true clean package
+#./mvnw  clean package

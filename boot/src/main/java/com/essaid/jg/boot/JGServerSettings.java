@@ -4,6 +4,7 @@ import io.netty.handler.ssl.ClientAuth;
 import org.apache.tinkerpop.gremlin.server.Settings;
 import org.janusgraph.graphdb.server.JanusGraphSettings;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -11,6 +12,13 @@ import java.util.*;
 @ConfigurationProperties(prefix = "jg.server")
 @Component
 public class JGServerSettings extends JanusGraphSettings {
+
+    private final Environment environment;
+
+    public JGServerSettings(Environment environment){
+        this.environment = environment;
+
+    }
 
     void setHost(String host) {
         this.host = host;

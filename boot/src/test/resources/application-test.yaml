@@ -3,10 +3,10 @@ jg:
   # Other type of config
   server:
     graphs:
-      graph: config/server/graph/default.properties
-#    scriptEngines:
-#      gremlin-groovy:
-#        plugins:
+      graph: config/server/graph/jg-memory.properties
+    scriptEngines:
+      gremlin-groovy:
+        plugins:
 #          "[org.apache.tinkerpop.gremlin.server.jsr223.GremlinServerGremlinPlugin]": { }
 #          "[org.apache.tinkerpop.gremlin.tinkergraph.jsr223.TinkerGraphGremlinPlugin]": { }
 #          "[org.apache.tinkerpop.gremlin.jsr223.ImportGremlinPlugin]":
@@ -15,9 +15,9 @@ jg:
 #
 #            methodImports:
 #              - java.lang.Math#*
-#          "[org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin]":
-#            files:
-#              - conf/server/init-scripts/default.groovy
+          "[org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin]":
+            files:
+              - config/server/init-scripts/default.groovy
 #    serializers:
 #      - className: org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV3d0
 #        config:

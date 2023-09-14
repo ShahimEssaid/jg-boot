@@ -1,12 +1,11 @@
-#debug: true
 jg:
   server:
     host: localhost
     port: 8182
     evaluationTimeout: 30000
     channelizer: org.apache.tinkerpop.gremlin.server.channel.WebSocketChannelizer
-    graphs:
-      graph: config/server/graph/inmemory.properties
+#    graphs:
+#      graph: config/server/graph/inmemory.properties
     scriptEngines:
       gremlin-groovy:
         plugins:
@@ -18,9 +17,9 @@ jg:
 
             methodImports:
               - java.lang.Math#*
-          "[org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin]":
-            files:
-              - config/server/init-scripts/default.groovy
+#          "[org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin]":
+#            files:
+#              - config/server/init-scripts/default.groovy
     serializers:
       - className: org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV3d0
         config:
