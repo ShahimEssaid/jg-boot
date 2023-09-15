@@ -93,7 +93,7 @@
                         <configuration>
                             <attach>false</attach>
                             <classifier>boot</classifier>
-                            <mainClass>com.essaid.jg.boot.Cli</mainClass>
+                            <mainClass>com.essaid.jg.boot.JGBoot</mainClass>
                         </configuration>
                     </execution>
                 </executions>

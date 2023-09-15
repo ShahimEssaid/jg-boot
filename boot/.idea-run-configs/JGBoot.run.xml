@@ -1,7 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Cli" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+  <configuration default="false" name="JGBoot" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <module name="com.essaid.jg.boot.boot" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="com.essaid.jg.boot.Cli" />
+    <option name="PROGRAM_PARAMETERS" value="start" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.essaid.jg.boot.JGBoot" />
     <option name="VM_PARAMETERS" value="-Dlogging.config=config/logback.xml" />
     <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/boot" />
     <method v="2">

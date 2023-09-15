@@ -9,10 +9,10 @@ import java.util.concurrent.Callable;
 
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
-@CommandLine.Command(name = "main",
+@CommandLine.Command(name = "cli",
         mixinStandardHelpOptions = true
         )
-public class Main implements Callable<Integer> {
+public class Cli implements Callable<Integer> {
 
     @Override
     public Integer call() throws Exception {
