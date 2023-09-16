@@ -77,9 +77,6 @@ if [[ -z "$JANUSGRAPH_LIB" ]]; then
   JANUSGRAPH_LIB="$JANUSGRAPH_HOME/lib"
 fi
 
-# absolute file path requires 'file:'
-LOG4J_CONF="file:$JANUSGRAPH_CONF/log4j2-server.xml"
-
 if [[ -d "$JANUSGRAPH_HOME/jdk" ]]; then
   JAVA_HOME="$JANUSGRAPH_HOME/jdk"
 fi
@@ -163,6 +160,10 @@ fi
 
 JANUSGRAPH_SERVER_CMD=com.essaid.janusgraph.server.Cli
 
+if [[ -z "${BOOT_OPTIONS-}" ]]; then
+  BOOT_OPTIONS=""
+fi
+
 isRunning() {
   if [[ -r "$PID_FILE" ]] ; then
     PID=$(cat "$PID_FILE")
@@ -223,7 +224,7 @@ start() {
       exit 1
     fi
 
-    $JAVA -Dlogging.config=$JANUSGRAPH_CONF/logback.xml $JAVA_OPTIONS -jar "$JANUSGRAPH_JAR" >> /dev/null 2>&1 &
+    $JAVA -Dlogging.config=$JANUSGRAPH_CONF/boot/logback-spring.xml $JAVA_OPTIONS $BOOT_OPTIONS -jar "$JANUSGRAPH_JAR" start >> /dev/null 2>&1 &
     PID=$!
     disown $PID
     echo $PID > "$PID_FILE"
@@ -241,7 +242,7 @@ start() {
       exit 1
     fi
 
-    su -c "$JAVA -Dlogging.config=$JANUSGRAPH_CONF/logback.xml $JAVA_OPTIONS  -jar "$JANUSGRAPH_JAR" >> /dev/null 2>&1 & echo \$! "  "$RUNAS" > "$PID_FILE"
+    su -c "$JAVA -Dlogging.config=$JANUSGRAPH_CONF/boot/logback-spring.xml $JAVA_OPTIONS $BOOT_OPTIONS -jar "$JANUSGRAPH_JAR" start >> /dev/null 2>&1 & echo \$! "  "$RUNAS" > "$PID_FILE"
     chown "$RUNAS" "$PID_FILE"
   fi
 
@@ -267,7 +268,7 @@ startForeground() {
 
   if [[ -z "$RUNAS" ]]; then
     echo "$JANUSGRAPH_YAML will be used to start JanusGraph Server in foreground"
-    exec $JAVA -Dlogging.config=$JANUSGRAPH_CONF/logback.xml $JAVA_OPTIONS  -jar "$JANUSGRAPH_JAR"
+    exec $JAVA -Dlogging.config=$JANUSGRAPH_CONF/boot/logback-spring.xml $JAVA_OPTIONS  $BOOT_OPTIONS -jar "$JANUSGRAPH_JAR" start
     exit 0
   else
     echo Starting in foreground not supported with RUNAS
@@ -302,6 +303,8 @@ printUsage() {
  be started in the foreground using the specified configuration (same as with \"console\" command)."
   echo
 }
+
+set -x
 
 case "$1" in
   status)
