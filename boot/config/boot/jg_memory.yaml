@@ -1,0 +1,12 @@
+#debug: true
+jg:
+  server:
+    graphs:
+      jg_memory: config/gremlin/server/graph/jg_memory.properties
+    scriptEngines:
+      gremlin-groovy:
+        plugins:
+          "[org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin]":
+            files:
+              jg_memory: config/gremlin/server/init-script/jg_memory.groovy
+

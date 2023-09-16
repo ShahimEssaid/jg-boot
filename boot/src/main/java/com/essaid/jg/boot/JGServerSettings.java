@@ -132,9 +132,39 @@ public class JGServerSettings extends JanusGraphSettings {
         this.graphs = graphs;
     }
 
-    void setScriptEngines(Map<String, ScriptEngineSettings> scriptEngines) {
+//    void setScriptEngines(Map<String, ScriptEngineSettings> scriptEngines) {
+    void setScriptEngines(Map<String, Object> scriptEngines) {
+
+        if (scriptEngines.containsKey("gremlin-groovy")){
+            Settings.ScriptEngineSettings groovySettings = new Settings.ScriptEngineSettings();
+            this.scriptEngines.put("gremlin-groovy",groovySettings);
+
+            Map<String, Object> groovyEngineConfig = (Map<String, Object>) scriptEngines.getOrDefault("gremlin-groovy", Collections.emptyMap());
+
+            // plugins
+            Map<String, Object> groovyEnginePlugins = (Map<String, Object>) groovyEngineConfig.getOrDefault("plugins", Collections.emptyMap());
+            for(Map.Entry<String, Object> pluginEntry: groovyEnginePlugins.entrySet()){
+                // for each plugin
+                String pluginName = pluginEntry.getKey();
+                Map<String, Map<String, String>> pluginConfig = (Map<String, Map<String, String>>) pluginEntry.getValue();
+
+                // each plugin has a Map<String, List> config object in the upstream Settings
+                Map<String, Object> configSections = new HashMap<>();
+                for (Map.Entry<String, Map<String, String>> pluginConfigSection : pluginConfig.entrySet()){
+                    // for each section
+                    configSections.put(pluginConfigSection.getKey(), Arrays.asList(pluginConfigSection.getValue().values().toArray()));
+                }
+                groovySettings.plugins.put(pluginName, configSections);
+            }
+
+            System.out.println(groovySettings);
+        }
+
+
+
+
         this.scriptEngines = new HashMap<>();
-        this.scriptEngines.putAll(scriptEngines);
+//        this.scriptEngines.putAll(scriptEngines);
     }
 
     void setSerializers(List<SerializerSettings> serializers) {
@@ -261,46 +291,6 @@ public class JGServerSettings extends JanusGraphSettings {
             }
 
             this.config = config;
-        }
-    }
-
-    public static class ScriptEngineSettings extends Settings.ScriptEngineSettings {
-
-
-        void setImports(List<String> imports) {
-            this.imports = imports;
-        }
-
-        void setStaticImports(List<String> staticImports) {
-            this.staticImports = staticImports;
-        }
-
-        void setScripts(List<String> scripts) {
-            this.scripts = scripts;
-        }
-
-        void setConfig(Map<String, Object> config) {
-            this.config = config;
-        }
-
-        void setPlugins(Map<String, Map<String, Object>> plugins) {
-
-            for (Map.Entry<String, Map<String, Object>> pluginEntry : plugins.entrySet()) {
-                for (Map.Entry<String, Object> pluginConfigEntry : pluginEntry.getValue().entrySet()) {
-                    if (pluginConfigEntry.getKey().equals("classImports")) {
-                        pluginConfigEntry.setValue(((Map<String, String>) pluginConfigEntry.getValue()).values());
-                    }
-
-                    if (pluginConfigEntry.getKey().equals("methodImports")) {
-                        pluginConfigEntry.setValue(((Map<String, String>) pluginConfigEntry.getValue()).values());
-                    }
-
-                    if (pluginConfigEntry.getKey().equals("files")) {
-                        pluginConfigEntry.setValue(new ArrayList<String>(((Map<String, String>) pluginConfigEntry.getValue()).values()));
-                    }
-                }
-            }
-            this.plugins = plugins;
         }
     }
 

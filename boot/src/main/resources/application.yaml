@@ -13,13 +13,12 @@ jg:
           "[org.apache.tinkerpop.gremlin.tinkergraph.jsr223.TinkerGraphGremlinPlugin]": { }
           "[org.apache.tinkerpop.gremlin.jsr223.ImportGremlinPlugin]":
             classImports:
-              - java.lang.Math
-
+              math: java.lang.Math
             methodImports:
-              - java.lang.Math#*
+              math: java.lang.Math#*
 #          "[org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin]":
 #            files:
-#              - config/server/init-scripts/default.groovy
+#              jg-memory: memory config/server/init-scripts/default.groovy
     serializers:
       - className: org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV3d0
         config:

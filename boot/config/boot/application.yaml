@@ -1,4 +1,3 @@
-#debug: true
 jg:
   server:
     host: localhost
@@ -14,12 +13,12 @@ jg:
           "[org.apache.tinkerpop.gremlin.tinkergraph.jsr223.TinkerGraphGremlinPlugin]": { }
           "[org.apache.tinkerpop.gremlin.jsr223.ImportGremlinPlugin]":
             classImports:
-              - java.lang.Math
+              math: java.lang.Math
             methodImports:
-              - java.lang.Math#*
+              math: java.lang.Math#*
 #          "[org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin]":
 #            files:
-#              - config/server/init-scripts/default.groovy
+#              jg-memory: memory config/server/init-scripts/default.groovy
     serializers:
       - className: org.apache.tinkerpop.gremlin.driver.ser.GraphSONMessageSerializerV3d0
         config:
@@ -63,10 +62,10 @@ jg:
 
 grpc:
   server:
-    port: 9999
+    port: 9090
     security:
       enabled: false
   client:
     test:
-      address: static://localhost:9999
+      address: static://localhost:9090
       negotiation-type: PLAINTEXT
