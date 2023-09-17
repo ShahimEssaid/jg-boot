@@ -1,2 +1,0 @@
-An example command for the jg_memory setup:
-    BOOT_OPTIONS="-Dlogging.level.root=TRACE -Dspring.config.name=application,memory" bin/server.sh console

@@ -26,4 +26,7 @@ if [[ -d jdk ]]; then
   export JAVA_HOME
 fi
 
+# Sets up the server related "distribution" files.
 ./mvnw -Pjg-setup org.apache.maven.plugins:maven-dependency-plugin:unpack@dist-setup
+
+

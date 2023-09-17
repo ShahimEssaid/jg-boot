@@ -21,15 +21,14 @@ DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
 
 cd "$DIR"/..
 
-CONSOLE_VER=3.7.0
-mkdir -p console
-set -x
-cd console
-
-#wget --max-redirect=20 "https://www.apache.org/dyn/closer.lua/tinkerpop/${CONSOLE_VER}/apache-tinkerpop-gremlin-console-${CONSOLE_VER}-bin.zip" -O console/console-${CONSOLE_VER}.zip
-if [[ ! -r ${CONSOLE_VER}.zip ]]; then
-  wget -nv --max-redirect=20 "https://dlcdn.apache.org/tinkerpop/${CONSOLE_VER}/apache-tinkerpop-gremlin-console-${CONSOLE_VER}-bin.zip" -O ${CONSOLE_VER}.zip
+if [[ -d jdk ]]; then
+  JAVA_HOME="$(pwd)/jdk"
+  export JAVA_HOME
 fi
 
-unzip -q ${CONSOLE_VER}.zip
-mv "apache-tinkerpop-gremlin-console-${CONSOLE_VER}"  ${CONSOLE_VER}
+# sets up the console dependencies under ../lib-console
+./mvnw \
+  -f pom-console.xml \
+  prepare-package
+
+#  dependency:copy-dependencies@console
