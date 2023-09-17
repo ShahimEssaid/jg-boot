@@ -27,3 +27,4 @@ maven-wrapper.jar
 /boot-dist*/.mvn
 /boot-dist*/mvnw*
 .flattened-pom.xml
+/boot/console/

@@ -3,10 +3,12 @@ package com.essaid.jg.boot;
 import io.netty.handler.ssl.ClientAuth;
 import org.apache.tinkerpop.gremlin.server.Settings;
 import org.janusgraph.graphdb.server.JanusGraphSettings;
+import org.janusgraph.graphdb.server.util.JanusGraphSettingsUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.*;
 
 @ConfigurationProperties(prefix = "jg.server")
@@ -15,9 +17,14 @@ public class JGServerSettings extends JanusGraphSettings {
 
     private final Environment environment;
 
-    public JGServerSettings(Environment environment){
+    public JGServerSettings(Environment environment) {
         this.environment = environment;
+    }
 
+    @PostConstruct
+    void init() {
+        JanusGraphSettingsUtils.configureDefaults(this);
+        System.out.println(this);
     }
 
     void setHost(String host) {
@@ -132,39 +139,43 @@ public class JGServerSettings extends JanusGraphSettings {
         this.graphs = graphs;
     }
 
-//    void setScriptEngines(Map<String, ScriptEngineSettings> scriptEngines) {
+    //    void setScriptEngines(Map<String, ScriptEngineSettings> scriptEngines) {
     void setScriptEngines(Map<String, Object> scriptEngines) {
 
-        if (scriptEngines.containsKey("gremlin-groovy")){
+        if (scriptEngines.containsKey("gremlin-groovy")) {
             Settings.ScriptEngineSettings groovySettings = new Settings.ScriptEngineSettings();
-            this.scriptEngines.put("gremlin-groovy",groovySettings);
+            this.scriptEngines.put("gremlin-groovy", groovySettings);
 
             Map<String, Object> groovyEngineConfig = (Map<String, Object>) scriptEngines.getOrDefault("gremlin-groovy", Collections.emptyMap());
 
+//            List<Object> scripts = new ArrayList<>();
             // plugins
             Map<String, Object> groovyEnginePlugins = (Map<String, Object>) groovyEngineConfig.getOrDefault("plugins", Collections.emptyMap());
-            for(Map.Entry<String, Object> pluginEntry: groovyEnginePlugins.entrySet()){
+            for (Map.Entry<String, Object> pluginEntry : groovyEnginePlugins.entrySet()) {
                 // for each plugin
                 String pluginName = pluginEntry.getKey();
                 Map<String, Map<String, String>> pluginConfig = (Map<String, Map<String, String>>) pluginEntry.getValue();
 
                 // each plugin has a Map<String, List> config object in the upstream Settings
                 Map<String, Object> configSections = new HashMap<>();
-                for (Map.Entry<String, Map<String, String>> pluginConfigSection : pluginConfig.entrySet()){
+                for (Map.Entry<String, Map<String, String>> pluginConfigSection : pluginConfig.entrySet()) {
                     // for each section
-                    configSections.put(pluginConfigSection.getKey(), Arrays.asList(pluginConfigSection.getValue().values().toArray()));
+                    List<Object> list = Arrays.asList(pluginConfigSection.getValue().values().toArray());
+                    configSections.put(pluginConfigSection.getKey(), list);
+
+//                    if (pluginName.equals("org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin") &&
+//                    pluginConfigSection.getKey().equals("files")){
+//                        scripts.addAll(list);
+//                    }
                 }
                 groovySettings.plugins.put(pluginName, configSections);
             }
-
+//            for(Object script: scripts ){
+//                groovySettings.scripts.add((String) script);
+//            }
             System.out.println(groovySettings);
         }
 
-
-
-
-        this.scriptEngines = new HashMap<>();
-//        this.scriptEngines.putAll(scriptEngines);
     }
 
     void setSerializers(List<SerializerSettings> serializers) {
@@ -285,8 +296,8 @@ public class JGServerSettings extends JanusGraphSettings {
         void setConfig(Map<String, Object> config) {
 
             for (Map.Entry<String, Object> configEntry : config.entrySet()) {
-                if (configEntry.getKey().equals("ioRegistries")){
-                    configEntry.setValue(new ArrayList<String>(((Map<String, String>)configEntry.getValue()).values()));
+                if (configEntry.getKey().equals("ioRegistries")) {
+                    configEntry.setValue(new ArrayList<String>(((Map<String, String>) configEntry.getValue()).values()));
                 }
             }
 

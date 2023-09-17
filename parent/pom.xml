@@ -18,7 +18,7 @@
     <properties>
         <revision>0.1.4-SNAPSHOT</revision>
         <com.essaid.jg.boot.version>${revision}</com.essaid.jg.boot.version>
-        <janusgraph.version>1.0.0-rc2</janusgraph.version>
+        <janusgraph.version>1.0.0-20230914-231825.6681799</janusgraph.version>
         <spring-boot.version>2.7.14</spring-boot.version>
         <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
         <maven.plugin.validation>VERBOSE</maven.plugin.validation>
