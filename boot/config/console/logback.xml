@@ -18,8 +18,27 @@
     </appender>
 
 
+
+    <appender name="FILE_INFO" class="ch.qos.logback.core.FileAppender">
+        <file>logs-console/${logFileStamp}_INFO.log</file>
+<!--        <file>logs/jg_%d{yyyy-MM-dd_HH:mm:ss.SSS}.log</file>-->
+        <append>true</append>
+        <!-- set immediateFlush to false for much higher logging throughput -->
+<!--        <immediateFlush>true</immediateFlush>-->
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+
+        <encoder>
+            <pattern>${logPattern}</pattern>
+        </encoder>
+    </appender>
+
     <appender name="FILE_WARN" class="ch.qos.logback.core.FileAppender">
-        <file>logs/${logFileStamp}_WARN.log</file>
+        <file>logs-console/${logFileStamp}_WARN.log</file>
         <!--        <file>logs/jg_%d{yyyy-MM-dd_HH:mm:ss.SSS}.log</file>-->
         <append>true</append>
         <!-- set immediateFlush to false for much higher logging throughput -->
@@ -36,27 +55,8 @@
         </encoder>
     </appender>
 
-    <appender name="FILE_INFO" class="ch.qos.logback.core.FileAppender">
-        <file>logs/${logFileStamp}_INFO.log</file>
-        <!--        <file>logs/jg_%d{yyyy-MM-dd_HH:mm:ss.SSS}.log</file>-->
-        <append>true</append>
-        <!-- set immediateFlush to false for much higher logging throughput -->
-        <!--        <immediateFlush>true</immediateFlush>-->
-        <!-- encoders are assigned the type
-             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
-
-        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
-        </filter>
-
-        <encoder>
-            <pattern>${logPattern}</pattern>
-        </encoder>
-    </appender>
-
-
     <appender name="FILE_DEBUG" class="ch.qos.logback.core.FileAppender">
-        <file>logs/${logFileStamp}_DEBUG.log</file>
+        <file>logs-console/${logFileStamp}_DEBUG.log</file>
         <!--        <file>logs/jg_%d{yyyy-MM-dd_HH:mm:ss.SSS}.log</file>-->
         <append>true</append>
         <!-- set immediateFlush to false for much higher logging throughput -->
@@ -74,7 +74,7 @@
     </appender>
 
     <appender name="FILE_TRACE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/${logFileStamp}_TRACE.log</file>
+        <file>logs-console/${logFileStamp}_TRACE.log</file>
         <!--        <file>logs/jg_%d{yyyy-MM-dd_HH:mm:ss.SSS}.log</file>-->
         <append>true</append>
         <!-- set immediateFlush to false for much higher logging throughput -->
@@ -91,11 +91,21 @@
         </encoder>
     </appender>
 
-    <root level="DEBUG">
+
+    <!--    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+    <!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+    <!--            <fileNamePattern>logs/jg_.%d{yyyy-MM-dd_HH:mm:ss}.log</fileNamePattern>-->
+    <!--        </rollingPolicy>-->
+    <!--        <encoder>-->
+    <!--            <pattern>${logPattern}</pattern>-->
+    <!--        </encoder>-->
+    <!--    </appender>-->
+
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE_WARN"/>
         <appender-ref ref="FILE_INFO"/>
         <appender-ref ref="FILE_DEBUG"/>
-        <!--<appender-ref ref="FILE_TRACE"/>-->
+        <appender-ref ref="FILE_TRACE"/>
     </root>
 </configuration>

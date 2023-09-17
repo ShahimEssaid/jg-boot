@@ -9,6 +9,7 @@ jg:
     scriptEngines:
       gremlin-groovy:
         plugins:
+          "[org.janusgraph.graphdb.tinkerpop.plugin.JanusGraphGremlinPlugin]": {}
           "[org.apache.tinkerpop.gremlin.server.jsr223.GremlinServerGremlinPlugin]": { }
           "[org.apache.tinkerpop.gremlin.tinkergraph.jsr223.TinkerGraphGremlinPlugin]": { }
           "[org.apache.tinkerpop.gremlin.jsr223.ImportGremlinPlugin]":

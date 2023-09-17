@@ -9,6 +9,7 @@ jg:
     scriptEngines:
       gremlin-groovy:
         plugins:
+          "[org.janusgraph.graphdb.tinkerpop.plugin.JanusGraphGremlinPlugin]": {}
           "[org.apache.tinkerpop.gremlin.server.jsr223.GremlinServerGremlinPlugin]": { }
           "[org.apache.tinkerpop.gremlin.tinkergraph.jsr223.TinkerGraphGremlinPlugin]": { }
           "[org.apache.tinkerpop.gremlin.jsr223.ImportGremlinPlugin]":
@@ -19,7 +20,6 @@ jg:
 #          "[org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin]":
 #            files:
 #              jg-memory: memory config/server/init-scripts/default.groovy
-#        scripts:
     serializers:
       - className: org.apache.tinkerpop.gremlin.util.ser.GraphSONMessageSerializerV3
         config:

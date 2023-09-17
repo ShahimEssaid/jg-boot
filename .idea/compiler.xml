@@ -10,5 +10,8 @@
         <module name="com.essaid.jg.boot.boot-dist-example" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="console" target="11" />
+    </bytecodeTargetLevel>
   </component>
 </project>

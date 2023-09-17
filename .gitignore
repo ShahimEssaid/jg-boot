@@ -17,7 +17,7 @@ buildNumber.properties
 .classpath
 
 jdk/
-logs/
+logs*/
 OpenJDK*
 *-old
 maven-wrapper.jar
@@ -27,4 +27,8 @@ maven-wrapper.jar
 /boot-dist*/.mvn
 /boot-dist*/mvnw*
 .flattened-pom.xml
-/boot/console/
+
+
+/boot/config/console/.java/
+/boot/config/console/.gremlin_groovy_history
+/boot/lib-console/

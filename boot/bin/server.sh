@@ -224,7 +224,12 @@ start() {
       exit 1
     fi
 
-    $JAVA -Dlogging.config=$JANUSGRAPH_CONF/boot/logback-spring.xml $JAVA_OPTIONS $BOOT_OPTIONS -jar "$JANUSGRAPH_JAR" start >> /dev/null 2>&1 &
+    $JAVA \
+      -Dlogging.config=$JANUSGRAPH_CONF/boot/logback-spring.xml \
+      $JAVA_OPTIONS $BOOT_OPTIONS \
+      -jar \
+      "$JANUSGRAPH_JAR" \
+      start >> /dev/null 2>&1 &
     PID=$!
     disown $PID
     echo $PID > "$PID_FILE"
@@ -268,7 +273,12 @@ startForeground() {
 
   if [[ -z "$RUNAS" ]]; then
     echo "$JANUSGRAPH_YAML will be used to start JanusGraph Server in foreground"
-    exec $JAVA -Dlogging.config=$JANUSGRAPH_CONF/boot/logback-spring.xml $JAVA_OPTIONS  $BOOT_OPTIONS -jar "$JANUSGRAPH_JAR" start
+    exec $JAVA \
+      -Dlogging.config=$JANUSGRAPH_CONF/boot/logback-spring.xml \
+      $JAVA_OPTIONS  \
+      $BOOT_OPTIONS \
+      -jar "$JANUSGRAPH_JAR" \
+      start
     exit 0
   else
     echo Starting in foreground not supported with RUNAS
