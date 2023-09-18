@@ -25,3 +25,4 @@ maven-wrapper.jar
 /config/console/.java/
 /config/console/.gremlin_groovy_history
 /config/console/lib-console/
+/berkeleydb/

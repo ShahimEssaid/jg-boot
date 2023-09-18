@@ -59,6 +59,13 @@
         </dependency>
 
         <dependency>
+            <groupId>org.janusgraph</groupId>
+            <artifactId>janusgraph-hadoop</artifactId>
+            <version>${janusgraph.version}</version>
+        </dependency>
+
+
+        <dependency>
             <groupId>com.essaid.jg</groupId>
             <artifactId>com.essaid.jg.grpc</artifactId>
             <version>0.0.1-SNAPSHOT</version>

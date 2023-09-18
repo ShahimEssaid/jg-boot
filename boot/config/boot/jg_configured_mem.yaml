@@ -1,0 +1,12 @@
+#debug: true
+jg:
+  server:
+    graphManager: org.janusgraph.graphdb.management.JanusGraphManager
+    graphs:
+      ConfigurationManagementGraph: config/server/graph/jg_configured_mem.properties
+    scriptEngines:
+      gremlin-groovy:
+        plugins:
+          "[org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin]": {}
+
+

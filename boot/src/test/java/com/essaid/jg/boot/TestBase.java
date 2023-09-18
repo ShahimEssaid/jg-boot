@@ -14,7 +14,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.apache.tinkerpop.gremlin.process.traversal.AnonymousTraversalSource.traversal;
 
-@SpringBootTest()
+@SpringBootTest(properties = {"logging.config=config/boot/logback-spring.xml", "logging.level.root=TRACE","spring.config.name=application,jg_configured_mem"})
 public class TestBase implements ITestBase {
 
 
@@ -70,15 +70,16 @@ public class TestBase implements ITestBase {
     @BeforeAll
     void setupTraversalSource() throws Exception {
         server.start();
-        traversal = traversal().withRemote("config/client/remote-graph.properties");
-        cluster = Cluster.open("config/client/remote-objects.yaml");
-        client = this.cluster.connect();
+
+//        traversal = traversal().withRemote("config/client/connection/remote-objects.yaml");
+//        cluster = Cluster.open("config/client/remote-objects.yaml");
+//        client = this.cluster.connect();
 
     }
 
     @AfterAll
     void close() {
-        cluster.close();
-        client.close();
+//        cluster.close();
+//        client.close();
     }
 }

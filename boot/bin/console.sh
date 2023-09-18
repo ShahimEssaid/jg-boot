@@ -38,11 +38,15 @@ if [[ -d "$CONS_HOME/jdk" ]]; then
 fi
 
 # Find Java
-if [[ "$JAVA_HOME" = "" ]] ; then
+if [[ "${JAVA_HOME:-}" = "" ]] ; then
     JAVA="java"
 else
     JAVA="$JAVA_HOME/bin/java"
 fi
+
+set -x
+
+"${JAVA}" --version
 
 
 "${JAVA}" \

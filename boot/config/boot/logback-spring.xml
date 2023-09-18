@@ -78,7 +78,7 @@
         <!--        <file>logs/jg_%d{yyyy-MM-dd_HH:mm:ss.SSS}.log</file>-->
         <append>true</append>
         <!-- set immediateFlush to false for much higher logging throughput -->
-        <!--        <immediateFlush>true</immediateFlush>-->
+        <immediateFlush>true</immediateFlush>
         <!-- encoders are assigned the type
              ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
 
@@ -96,6 +96,6 @@
         <appender-ref ref="FILE_WARN"/>
         <appender-ref ref="FILE_INFO"/>
         <appender-ref ref="FILE_DEBUG"/>
-        <!--<appender-ref ref="FILE_TRACE"/>-->
+        <appender-ref ref="FILE_TRACE"/>
     </root>
 </configuration>

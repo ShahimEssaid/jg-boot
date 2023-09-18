@@ -1,0 +1,14 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="JGBoot tg_modern" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+    <option name="ALTERNATIVE_JRE_PATH" value="17" />
+    <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+    <module name="com.essaid.jg.boot.boot" />
+    <option name="PROGRAM_PARAMETERS" value="start" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="com.essaid.jg.boot.JGBoot" />
+    <option name="VM_PARAMETERS" value="-Dlogging.config=config/boot/logback-spring.xml -Dlogging.level.root=INFO -Dspring.config.name=application,tg_modern" />
+    <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$/boot" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
