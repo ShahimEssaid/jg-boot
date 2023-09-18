@@ -94,9 +94,9 @@ COLLECTED_JAVA_OPTIONS_FILE=""
 if [[ -z "$JAVA_OPTIONS_FILE" ]]; then
   jver=$($JAVA -version 2>&1 | grep 'version' 2>&1 | awk -F\" '{ split($2,a,"."); print a[1]"."a[2]}')
   if [[ $jver == "1.8" ]]; then                
-    JAVA_OPTIONS_FILE="$JANUSGRAPH_CONF/jvm-8.options"
+    JAVA_OPTIONS_FILE="$JANUSGRAPH_CONF/boot/jvm-8.options"
   else
-    JAVA_OPTIONS_FILE="$JANUSGRAPH_CONF/jvm-11.options"
+    JAVA_OPTIONS_FILE="$JANUSGRAPH_CONF/boot/jvm-11.options"
   fi
 fi
 if [[ -f "$JAVA_OPTIONS_FILE" ]]; then
