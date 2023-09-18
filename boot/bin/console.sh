@@ -49,7 +49,7 @@ fi
   -Dlogback.configurationFile="${CONS_CONF}/logback.xml" \
   -Duser.home="${CONS_CONF}" \
   -Dtinkerpop.ext="${CONS_CONF}" \
-  -cp "${CONS_HOME}/lib-console/*" \
+  -cp "${CONS_CONF}/lib-console/*" \
   org.apache.tinkerpop.gremlin.console.Console
 
 #  com.essaid.jg.boot.console.Cli

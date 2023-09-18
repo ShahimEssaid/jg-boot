@@ -28,7 +28,7 @@ fi
 
 # sets up the console dependencies under ../lib-console
 ./mvnw \
-  -f pom-console.xml \
+  -f config/console/dependencies.xml \
   prepare-package
 
 #  dependency:copy-dependencies@console
