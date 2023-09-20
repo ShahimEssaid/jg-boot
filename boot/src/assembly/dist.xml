@@ -9,15 +9,23 @@
         <fileSet>
             <outputDirectory>.</outputDirectory>
             <includes>
-                <include>bin/server.sh</include>
-                <include>bin/dist-*.sh</include>
+                <include>bin/*</include>
+            </includes>
+            <fileMode>0755</fileMode>
+        </fileSet>
+        <fileSet>
+            <outputDirectory>.</outputDirectory>
+            <includes>
                 <include>config/**</include>
-                <include>lib/**</include>
                 <include>.mvn/wrapper/maven-wrapper.properties</include>
                 <include>mvnw</include>
                 <include>mvnw.cmd</include>
             </includes>
-            <fileMode>0755</fileMode>
+            <excludes>
+                <exclude>config/console/.java/**</exclude>
+                <exclude>config/console/lib/**</exclude>
+                <exclude>config/console/.gremlin_groovy_history</exclude>
+            </excludes>
         </fileSet>
     </fileSets>
 </assembly>

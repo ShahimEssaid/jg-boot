@@ -13,11 +13,11 @@ import java.util.*;
 
 @ConfigurationProperties(prefix = "jg.server")
 @Component
-public class JGServerSettings extends JanusGraphSettings {
+public class JGBootSettings extends JanusGraphSettings {
 
     private final Environment environment;
 
-    public JGServerSettings(Environment environment) {
+    public JGBootSettings(Environment environment) {
         this.environment = environment;
     }
 

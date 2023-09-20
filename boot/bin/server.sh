@@ -46,72 +46,48 @@ JANUSGRAPH_BIN="$(pwd)"
 
 [[ -n "$DEBUG" ]] && set -x
 
-if [[ -z "$JANUSGRAPH_HOME" ]]; then
+if [[ -z "$JG_HOME" ]]; then
   cd ..
-  JANUSGRAPH_HOME="$(pwd)"
+  JG_HOME="$(pwd)"
 fi
 
-if [[ -z "$JANUSGRAPH_CONF" ]] ; then
-  JANUSGRAPH_CONF="$JANUSGRAPH_HOME/config"
+if [[ -z "$JG_CONFIG" ]] ; then
+  JG_CONFIG="$JG_HOME/config"
 fi
 
-if [[ -z "$LOG_DIR" ]] ; then
-  LOG_DIR="$JANUSGRAPH_HOME/logs"
-fi
-
-if [[ -z "$LOG_FILE" ]]; then
-  LOG_FILE="$LOG_DIR/janusgraph_$(date '+%Y-%m-%d_%H-%M-%S').log"
-fi
 
 if [[ -z "$PID_DIR" ]] ; then
-  PID_DIR="$JANUSGRAPH_HOME/run"
+  PID_DIR="$JG_HOME/run"
 fi
 
 if [[ -z "$PID_FILE" ]]; then
   PID_FILE="$PID_DIR/janusgraph.pid"
 fi
 
-
-# Set $JANUSGRAPH_LIB to $JANUSGRAPH_HOME/lib if unset
-if [[ -z "$JANUSGRAPH_LIB" ]]; then
-  JANUSGRAPH_LIB="$JANUSGRAPH_HOME/lib"
-fi
-
-if [[ -d "$JANUSGRAPH_HOME/jdk" ]]; then
-  JAVA_HOME="$JANUSGRAPH_HOME/jdk"
+if [[ -d "$JG_HOME/jdk" ]]; then
+  JAVA_HOME="$JG_HOME/jdk"
 fi
 
 # Find Java
 if [[ "$JAVA_HOME" = "" ]] ; then
-    JAVA="java"
+    JG_JAVA="java"
 else
-    JAVA="$JAVA_HOME/bin/java"
+    JG_JAVA="$JAVA_HOME/bin/java"
 fi
 
-COLLECTED_JAVA_OPTIONS_FILE=""
+JG_JAVA_VERSION=$($JG_JAVA -version 2>&1 | grep 'version' 2>&1 | awk -F\" '{ split($2,a,"."); print a[1]"."a[2]}')
 
-# Read user-defined JVM options from jvm.options file
-if [[ -z "$JAVA_OPTIONS_FILE" ]]; then
-  jver=$($JAVA -version 2>&1 | grep 'version' 2>&1 | awk -F\" '{ split($2,a,"."); print a[1]"."a[2]}')
-  if [[ $jver == "1.8" ]]; then                
-    JAVA_OPTIONS_FILE="$JANUSGRAPH_CONF/boot/jvm-8.options"
-  else
-    JAVA_OPTIONS_FILE="$JANUSGRAPH_CONF/boot/jvm-11.options"
-  fi
-fi
-if [[ -f "$JAVA_OPTIONS_FILE" ]]; then
-  for opt in "$(grep '^-' $JAVA_OPTIONS_FILE)"
-  do
-    opt=$(echo "$opt" | xargs)
-    COLLECTED_JAVA_OPTIONS_FILE="$COLLECTED_JAVA_OPTIONS_FILE $opt"
-  done
+bin/dump-jvm-options.sh
+
+if [[ -z "${JAVA_OPTIONS_FILE:-}" ]]; then
+  JAVA_OPTIONS_FILE="$JG_HOME/config/server/jvm-${JG_JAVA_VERSION}.options.clean"
 fi
 
-JAVA_OPTIONS="$COLLECTED_JAVA_OPTIONS_FILE $JAVA_OPTIONS -javaagent:$JANUSGRAPH_LIB/jamm-0.3.3.jar"
+JAVA_OPTIONS="$(cat ${JAVA_OPTIONS_FILE} | xargs) $JAVA_OPTIONS -javaagent:$JG_CONFIG/server/lib/jamm-0.3.3.jar"
 
 if [[ -z "$JANUSGRAPH_JAR" ]]; then
-  if [[ -r "$JANUSGRAPH_HOME/jar/server.jar" ]]; then
-    JANUSGRAPH_JAR="$JANUSGRAPH_HOME/jar/server.jar"
+  if [[ -r "$JG_HOME/jar/server.jar" ]]; then
+    JANUSGRAPH_JAR="$JG_HOME/jar/server.jar"
   else
     for f in target/*-boot.jar
     do
@@ -121,42 +97,15 @@ if [[ -z "$JANUSGRAPH_JAR" ]]; then
   fi
 fi
 
+# If we still don't have a Jar, build and use it.
 if [[ -z "$JANUSGRAPH_JAR" ]]; then
-
   bin/build.sh
-
-#  if [[ -r mvnw ]]; then
-#    ./mvnw -Dmaven.test.skip=true clean package
-#  else
-#    mvn -Dmaven.test.skip=true clean package
-#  fi
-
   for f in target/*-boot.jar
       do
         JANUSGRAPH_JAR=$f
         break
   done
-
 fi
-
-# Build Java CLASSPATH
-#if [[ -z "$CP" ]];then
-#  # Initialize classpath to $JANUSGRAPH_CFG
-#  CP="${JANUSGRAPH_CONF}"
-#  # Add the slf4j-log4j12 binding
-#  CP="$CP":$(find -L $JANUSGRAPH_LIB -name 'slf4j-log4j12*.jar' | sort | tr '\n' ':')
-#  # Add the jars in $JANUSGRAPH_HOME/lib that start with "janusgraph"
-#  CP="$CP":$(find -L $JANUSGRAPH_LIB -name 'janusgraph*.jar' | sort | tr '\n' ':')
-#  # Add the remaining jars in $JANUSGRAPH_HOME/lib.
-#  CP="$CP":$(find -L $JANUSGRAPH_LIB -name '*.jar' \
-#                  \! -name 'janusgraph*' \
-#                  \! -name 'slf4j-log4j12*.jar' | sort | tr '\n' ':')
-#  # Add the jars in $BIN/../ext (at any subdirectory depth)
-#  CP="$CP":$( find -L "$JANUSGRAPH_HOME"/ext -mindepth 1 -maxdepth 1 -type d | \
-#        sort | sed 's/$/\/plugin\/*/' | tr '\n' ':' )
-#fi
-#
-#CLASSPATH="${CLASSPATH:-}:$CP"
 
 JANUSGRAPH_SERVER_CMD=com.essaid.janusgraph.server.Cli
 
@@ -212,20 +161,13 @@ start() {
 
   if [[ -z "$RUNAS" ]]; then
 
-    mkdir -p "$LOG_DIR" &>/dev/null
-    if [[ ! -d "$LOG_DIR" ]]; then
-      echo ERROR: LOG_DIR $LOG_DIR does not exist and could not be created.
-      exit 1
-    fi
-
     mkdir -p "$PID_DIR" &>/dev/null
     if [[ ! -d "$PID_DIR" ]]; then
       echo ERROR: PID_DIR $PID_DIR does not exist and could not be created.
       exit 1
     fi
 
-    $JAVA \
-      -Dlogging.config=$JANUSGRAPH_CONF/boot/logback-spring.xml \
+    $JG_JAVA \
       $JAVA_OPTIONS $BOOT_OPTIONS \
       -jar \
       "$JANUSGRAPH_JAR" \
@@ -235,19 +177,14 @@ start() {
     echo $PID > "$PID_FILE"
   else
 
-    su -c "mkdir -p $LOG_DIR &>/dev/null"  "$RUNAS"
-    if [[ ! -d "$LOG_DIR" ]]; then
-      echo ERROR: LOG_DIR $LOG_DIR does not exist and could not be created.
-      exit 1
-    fi
-
+    su -c "mkdir -p $JG_HOME/log &>/dev/null"  "$RUNAS"
     su -c "mkdir -p $PID_DIR &>/dev/null"  "$RUNAS"
     if [[ ! -d "$PID_DIR" ]]; then
       echo ERROR: PID_DIR $PID_DIR does not exist and could not be created.
       exit 1
     fi
 
-    su -c "$JAVA -Dlogging.config=$JANUSGRAPH_CONF/boot/logback-spring.xml $JAVA_OPTIONS $BOOT_OPTIONS -jar "$JANUSGRAPH_JAR" start >> /dev/null 2>&1 & echo \$! "  "$RUNAS" > "$PID_FILE"
+    su -c "$JG_JAVA $JAVA_OPTIONS $BOOT_OPTIONS -jar "$JANUSGRAPH_JAR" start >> /dev/null 2>&1 & echo \$! "  "$RUNAS" > "$PID_FILE"
     chown "$RUNAS" "$PID_FILE"
   fi
 
@@ -273,8 +210,7 @@ startForeground() {
 
   if [[ -z "$RUNAS" ]]; then
     echo "$JANUSGRAPH_YAML will be used to start JanusGraph Server in foreground"
-    exec $JAVA \
-      -Dlogging.config=$JANUSGRAPH_CONF/boot/logback-spring.xml \
+    exec $JG_JAVA \
       $JAVA_OPTIONS  \
       $BOOT_OPTIONS \
       -jar "$JANUSGRAPH_JAR" \
@@ -287,8 +223,7 @@ startForeground() {
 }
 
 printConfig() {
-    echo "JANUSGRAPH_HOME: ${JANUSGRAPH_HOME}"
-    echo "LOG_DIR: ${LOG_DIR}"
+    echo "JG_HOME: ${JG_HOME}"
     echo "PID_FILE: ${PID_FILE}"
     echo "JAVA_OPTIONS: ${JAVA_OPTIONS}"
 }

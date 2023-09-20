@@ -24,5 +24,5 @@ maven-wrapper.jar
 .flattened-pom.xml
 /config/console/.java/
 /config/console/.gremlin_groovy_history
-/config/console/lib-console/
+/config/console/lib/
 /berkeleydb/

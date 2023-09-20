@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="JGBoot tg_configured_mem" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-    <module name="com.essaid.jg.boot.boot" />
+    <module name="jg.boot" />
     <option name="PROGRAM_PARAMETERS" value="start" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.essaid.jg.boot.JGBoot" />
     <option name="VM_PARAMETERS" value="-Dlogging.config=config/boot/logback-spring.xml -Dlogging.level.root=TRACE -Dspring.config.name=application,jg_configured_mem" />

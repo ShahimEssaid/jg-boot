@@ -26,7 +26,8 @@ if [[ -d jdk ]]; then
   export JAVA_HOME
 fi
 
-# sets up the console dependencies under ../lib-console
+rm -rf "config/console/lib"
+# sets up the console dependencies under ../lib
 ./mvnw \
   -f config/console/dependencies.xml \
   prepare-package

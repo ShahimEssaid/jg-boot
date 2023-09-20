@@ -11,7 +11,7 @@ public class ServerTest {
     JGServer server;
 
     @Autowired
-    JGServerSettings serverConfig;
+    JGBootSettings serverConfig;
 
     @Test
     void runServer(){

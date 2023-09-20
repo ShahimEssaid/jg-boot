@@ -52,7 +52,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>lib-console</outputDirectory>
+                            <outputDirectory>lib</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>

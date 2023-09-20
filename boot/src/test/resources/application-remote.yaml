@@ -1,0 +1,17 @@
+jg:
+  tests:
+    settings:
+      remote:
+        cluster:
+          hosts: [ localhost ]
+          port: 8182
+          serializer:
+            {
+              className: org.apache.tinkerpop.gremlin.util.ser.GraphBinaryMessageSerializerV1,
+              config:
+                { ioRegistries: [ org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry ] },
+            }
+        source-name: g
+
+      embedded:
+        graph-name:

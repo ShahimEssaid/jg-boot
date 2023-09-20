@@ -31,8 +31,6 @@ if [[ -z "${CONS_CONF:-}" ]] ; then
   CONS_CONF="$CONS_HOME/config/console"
 fi
 
-
-
 if [[ -d "$CONS_HOME/jdk" ]]; then
   JAVA_HOME="$CONS_HOME/jdk"
 fi
@@ -46,14 +44,15 @@ fi
 
 set -x
 
-"${JAVA}" --version
-
+if [[ ! -d "$CONS_HOME/config/console/lib" ]]; then
+  bin/console-setup.sh
+fi
 
 "${JAVA}" \
   -Dlogback.configurationFile="${CONS_CONF}/logback.xml" \
   -Duser.home="${CONS_CONF}" \
   -Dtinkerpop.ext="${CONS_CONF}" \
-  -cp "${CONS_CONF}/lib-console/*" \
+  -cp "${CONS_CONF}/lib/*" \
   org.apache.tinkerpop.gremlin.console.Console
 
 #  com.essaid.jg.boot.console.Cli

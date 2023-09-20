@@ -4,8 +4,8 @@ jg:
     port: 8182
     evaluationTimeout: 30000
     channelizer: org.apache.tinkerpop.gremlin.server.channel.WebSocketChannelizer
-#    graphs:
-#      graph: config/server/graph/inmemory.properties
+    graphs:
+      graph: config/server/graph-config/jg_memory.properties
     scriptEngines:
       gremlin-groovy:
         plugins:
@@ -18,9 +18,9 @@ jg:
               math: java.lang.Math
             methodImports:
               math: java.lang.Math#*
-#          "[org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin]":
-#            files:
-#              jg-memory: memory config/server/init-scripts/default.groovy
+          "[org.apache.tinkerpop.gremlin.jsr223.ScriptFileGremlinPlugin]":
+            files:
+              graph: config/server/init-script/graph.groovy
     serializers:
       - className: org.apache.tinkerpop.gremlin.util.ser.GraphSONMessageSerializerV3
         config:

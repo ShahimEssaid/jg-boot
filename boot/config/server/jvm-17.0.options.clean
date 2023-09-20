@@ -1,0 +1,13 @@
+-Dgremlin.io.kryoShimService=org.janusgraph.hadoop.serialize.JanusGraphKryoShimService
+-Xms4096m
+-Xmx4096m
+-Xss256k
+-XX:+AlwaysPreTouch
+-XX:+HeapDumpOnOutOfMemoryError
+-XX:MaxTenuringThreshold=1
+-XX:+ResizeTLAB
+-XX:SurvivorRatio=8
+-XX:+UseG1GC
+-XX:+UseNUMA
+-XX:+UseThreadPriorities
+-XX:+UseTLAB

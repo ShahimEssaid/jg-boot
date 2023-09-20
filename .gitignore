@@ -32,3 +32,6 @@ maven-wrapper.jar
 /boot/config/console/.java/
 /boot/config/console/.gremlin_groovy_history
 /boot/lib-console/
+
+.idea-*
+

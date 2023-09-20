@@ -25,16 +25,41 @@ public class JGServer extends JanusGraphServer {
 
     private static final Logger logger = LoggerFactory.getLogger(JGServer.class);
 
-    private final JGServerSettings settings;
+    private final JGBootSettings settings;
     private CompletableFuture<Void> serverStarted;
     private CompletableFuture<Void> serverStopped = null;
     private GremlinServer gremlinServer = null;
     private Server grpcServer;
 
-    public JGServer(JGServerSettings settings) {
+    public JGServer(JGBootSettings settings) {
         super(null);
         this.settings = settings;
         this.gremlinServer = new GremlinServer(settings);
+    }
+
+    private static void configure(ServerGremlinExecutor serverGremlinExecutor) {
+        GraphManager graphManager = serverGremlinExecutor.getGraphManager();
+        if (!(graphManager instanceof JanusGraphManager)) {
+            return;
+        }
+        ((JanusGraphManager) graphManager).configureGremlinExecutor(serverGremlinExecutor.getGremlinExecutor());
+    }
+
+    private static void printHeader() {
+        logger.info(getHeader());
+        logger.info("JanusGraph Version: {}", Manifests.read(MANIFEST_JANUSGRAPH_VERSION_ATTRIBUTE));
+        logger.info("TinkerPop Version: {}", Manifests.read(MANIFEST_TINKERPOP_VERSION_ATTRIBUTE));
+    }
+
+    private static String getHeader() {
+        return "                                                                      " + System.lineSeparator() +
+                "   mmm                                mmm                       #     " + System.lineSeparator() +
+                "     #   mmm   m mm   m   m   mmm   m\"   \"  m mm   mmm   mmmm   # mm  " + System.lineSeparator() +
+                "     #  \"   #  #\"  #  #   #  #   \"  #   mm  #\"  \" \"   #  #\" \"#  #\"  # " + System.lineSeparator() +
+                "     #  m\"\"\"#  #   #  #   #   \"\"\"m  #    #  #     m\"\"\"#  #   #  #   # " + System.lineSeparator() +
+                " \"mmm\"  \"mm\"#  #   #  \"mm\"#  \"mmm\"   \"mmm\"  #     \"mm\"#  ##m#\"  #   # " + System.lineSeparator() +
+                "                                                         #            " + System.lineSeparator() +
+                "                                                         \"            " + System.lineSeparator();
     }
 
     @Override
@@ -75,20 +100,17 @@ public class JGServer extends JanusGraphServer {
 
     }
 
+    public synchronized boolean isStarted() {
+        if (this.serverStarted == null) return false;
+        this.serverStarted.join();
+        return true;
+    }
+
     public synchronized GremlinServer getGremlinServer() {
         return gremlinServer;
     }
 
-
-    private static void configure(ServerGremlinExecutor serverGremlinExecutor) {
-        GraphManager graphManager = serverGremlinExecutor.getGraphManager();
-        if (!(graphManager instanceof JanusGraphManager)){
-            return;
-        }
-        ((JanusGraphManager) graphManager).configureGremlinExecutor(serverGremlinExecutor.getGremlinExecutor());
-    }
-
-    private Server createGrpcServer(JGServerSettings janusGraphSettings, GraphManager graphManager) {
+    private Server createGrpcServer(JGBootSettings janusGraphSettings, GraphManager graphManager) {
         JanusGraphContextHandler janusGraphContextHandler = new JanusGraphContextHandler(graphManager);
         return ServerBuilder
                 .forPort(janusGraphSettings.getGrpcServer().getPort())
@@ -98,7 +120,7 @@ public class JGServer extends JanusGraphServer {
     }
 
     @PreDestroy
-    public void close(){
+    public void close() {
         stop().join();
     }
 
@@ -114,23 +136,6 @@ public class JGServer extends JanusGraphServer {
         }
         serverStopped = gremlinServer.stop();
         return serverStopped;
-    }
-
-    private static void printHeader() {
-        logger.info(getHeader());
-        logger.info("JanusGraph Version: {}", Manifests.read(MANIFEST_JANUSGRAPH_VERSION_ATTRIBUTE));
-        logger.info("TinkerPop Version: {}", Manifests.read(MANIFEST_TINKERPOP_VERSION_ATTRIBUTE));
-    }
-
-    private static String getHeader() {
-        return "                                                                      " + System.lineSeparator() +
-                "   mmm                                mmm                       #     " + System.lineSeparator() +
-                "     #   mmm   m mm   m   m   mmm   m\"   \"  m mm   mmm   mmmm   # mm  " + System.lineSeparator() +
-                "     #  \"   #  #\"  #  #   #  #   \"  #   mm  #\"  \" \"   #  #\" \"#  #\"  # " + System.lineSeparator() +
-                "     #  m\"\"\"#  #   #  #   #   \"\"\"m  #    #  #     m\"\"\"#  #   #  #   # " + System.lineSeparator() +
-                " \"mmm\"  \"mm\"#  #   #  \"mm\"#  \"mmm\"   \"mmm\"  #     \"mm\"#  ##m#\"  #   # " + System.lineSeparator() +
-                "                                                         #            " + System.lineSeparator() +
-                "                                                         \"            " + System.lineSeparator();
     }
 
 }

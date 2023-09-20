@@ -7,11 +7,14 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="com.essaid.jg.boot.boot" />
-        <module name="com.essaid.jg.boot.boot-dist-example" />
+        <module name="boot-dist-example" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="console" target="11" />
+      <module name="boot" target="11" />
+      <module name="group1.boot-dist-example" target="11" />
+      <module name="group1.com.essaid.jg.boot.boot-dist" target="11" />
+      <module name="group1.com.essaid.jg.boot.boot-dist-example" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
