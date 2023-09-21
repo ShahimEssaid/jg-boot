@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Configuration;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 @EnableConfigurationProperties({TestSettings.class})
@@ -56,17 +55,15 @@ public class TestConfiguration {
 
         GraphTraversalSource source = null;
 
-        if (testSettings.getRemote() != null){
+        if (testSettings.getRemote().getCluster() != null) {
             DriverRemoteConnection remoteConnection = DriverRemoteConnection.using(testCluster(), testSettings.remote.getSourceName());
             AnonymousTraversalSource<GraphTraversalSource> traversal = AnonymousTraversalSource.traversal();
             source = traversal.withRemote(remoteConnection);
         } else {
-            if(server.isStarted()){
-                GraphManager graphManager = server.getGremlinServer().getServerGremlinExecutor().getGraphManager();
-                Graph graph = graphManager.getGraph(testSettings.embedded.getGraphName());
-                source = AnonymousTraversalSource.traversal().withEmbedded(graph);
-
-            }
+            server.start().join();
+            GraphManager graphManager = server.getGremlinServer().getServerGremlinExecutor().getGraphManager();
+            Graph graph = graphManager.getGraph(testSettings.embedded.getGraphName());
+            source = AnonymousTraversalSource.traversal().withEmbedded(graph);
         }
         return source;
     }

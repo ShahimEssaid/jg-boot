@@ -1,17 +1,14 @@
-package com.essaid.jg.boot.tests;
+package hold;
 
-import com.essaid.jg.boot.ITestBase;
 import org.apache.tinkerpop.gremlin.process.traversal.dsl.graph.GraphTraversal;
 import org.apache.tinkerpop.gremlin.structure.Vertex;
 import org.janusgraph.graphdb.grpc.GetJanusGraphContextByGraphNameRequest;
-import org.janusgraph.graphdb.grpc.JanusGraphManagerClient;
 import org.janusgraph.graphdb.grpc.schema.GetVertexLabelsRequest;
 import org.janusgraph.graphdb.grpc.schema.GetVertexLabelsResponse;
 import org.janusgraph.graphdb.grpc.schema.SchemaManagerClient;
 import org.janusgraph.graphdb.grpc.types.JanusGraphContext;
 import org.janusgraph.graphdb.grpc.types.VertexLabel;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 

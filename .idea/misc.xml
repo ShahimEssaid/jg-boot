@@ -8,6 +8,8 @@
         <option value="$PROJECT_DIR$/parent/pom.xml" />
         <option value="$PROJECT_DIR$/boot-dist/pom.xml" />
         <option value="$PROJECT_DIR$/boot-dist-example/pom.xml" />
+        <option value="$PROJECT_DIR$/build/pom.xml" />
+        <option value="$PROJECT_DIR$/../com.essaid.pom/pom.xml" />
       </list>
     </option>
   </component>

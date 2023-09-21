@@ -1,7 +1,6 @@
-package com.essaid.jg.boot;
+package hold;
 
-import com.essaid.jg.boot.tests.AddVertext;
-import com.essaid.jg.boot.tests.PrintSchema;
+import com.essaid.jg.boot.JGServer;
 import org.apache.commons.configuration2.MapConfiguration;
 import org.apache.tinkerpop.gremlin.server.GraphManager;
 import org.janusgraph.core.ConfiguredGraphFactory;

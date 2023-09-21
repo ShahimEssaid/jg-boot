@@ -1,0 +1,8 @@
+/.mvn/
+/bin/
+/config/
+/jdk/
+/target/
+OpenJDK*
+mvnw*
+

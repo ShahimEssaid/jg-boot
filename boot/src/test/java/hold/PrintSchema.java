@@ -1,10 +1,7 @@
-package com.essaid.jg.boot.tests;
+package hold;
 
-import com.essaid.jg.boot.ITestBase;
 import org.apache.tinkerpop.gremlin.driver.Client;
 import org.apache.tinkerpop.gremlin.driver.ResultSet;
-import org.janusgraph.core.JanusGraph;
-import org.janusgraph.core.schema.JanusGraphManagement;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestReporter;
 

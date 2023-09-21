@@ -1,5 +1,6 @@
-package com.essaid.jg.boot;
+package hold;
 
+import com.essaid.jg.boot.JGServer;
 import net.devh.boot.grpc.client.inject.GrpcClient;
 import org.apache.tinkerpop.gremlin.driver.Client;
 import org.apache.tinkerpop.gremlin.driver.Cluster;

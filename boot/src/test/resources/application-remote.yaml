@@ -12,6 +12,5 @@ jg:
                 { ioRegistries: [ org.janusgraph.graphdb.tinkerpop.JanusGraphIoRegistry ] },
             }
         source-name: g
-
       embedded:
-        graph-name:
+        graph-name: graph

@@ -1,7 +1,7 @@
 package com.essaid.jg.boot.tests.remtoe;
 
-import com.essaid.jg.boot.tests.JGTestBase;
+import com.essaid.jg.boot.tests.TestBase;
 
-public abstract class JGRemoteTestBase extends JGTestBase implements IJGRemoteTest {
+public abstract class JGRemoteTestBase extends TestBase implements IJGRemoteTest {
 
 }

@@ -6,13 +6,20 @@
 
     <parent>
         <groupId>com.essaid.jg.boot</groupId>
-        <artifactId>com.essaid.jg.boot.boot-dist</artifactId>
-        <!-- Replace with actual version value in your own copy-->
+        <artifactId>com.essaid.jg.boot.parent</artifactId>
         <version>${revision}</version>
-        <!-- This can/should be deleted in your copy.-->
-        <relativePath>../boot-dist</relativePath>
+        <relativePath>../parent</relativePath>
     </parent>
 
-    <artifactId>com.essaid.jg.boot.boot-dist-example</artifactId>
+    <artifactId>build</artifactId>
+    <packaging>pom</packaging>
+
+    <modules>
+        <module>../parent</module>
+        <module>../boot</module>
+        <module>../dist</module>
+        <module>../dist-example</module>
+    </modules>
+
 
 </project>
