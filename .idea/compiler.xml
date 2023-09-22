@@ -7,14 +7,19 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="dist-example" />
         <module name="com.essaid.jg.boot.boot" />
+        <module name="com.essaid.jg.boot.tims-grpc-impl" />
+        <module name="com.essaid.jg.boot.tims-instance" />
+        <module name="tims-client" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="boot" target="11" />
       <module name="boot-dist-example" target="11" />
       <module name="com.essaid.jg.boot.boot-dist" target="11" />
+      <module name="com.essaid.jg.boot.dist-example" target="11" />
+      <module name="com.essaid.jg.boot.grpc-example" target="11" />
+      <module name="dist-example" target="11" />
       <module name="group1.boot-dist-example" target="11" />
       <module name="group1.com.essaid.jg.boot.boot-dist" target="11" />
       <module name="group1.com.essaid.jg.boot.boot-dist-example" target="11" />

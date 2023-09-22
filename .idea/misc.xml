@@ -10,6 +10,9 @@
         <option value="$PROJECT_DIR$/boot-dist-example/pom.xml" />
         <option value="$PROJECT_DIR$/build/pom.xml" />
         <option value="$PROJECT_DIR$/../com.essaid.pom/pom.xml" />
+        <option value="$PROJECT_DIR$/grpc-example/pom.xml" />
+        <option value="$PROJECT_DIR$/tims-grpc-impl/pom.xml" />
+        <option value="$PROJECT_DIR$/tims-client/pom.xml" />
       </list>
     </option>
   </component>

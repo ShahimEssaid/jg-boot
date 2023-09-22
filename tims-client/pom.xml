@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.essaid.poms</groupId>
+        <artifactId>com.essaid.poms.top</artifactId>
+        <version>0.1.1-SNAPSHOT</version>
+    </parent>
+
+    <groupId>com.essaid.jg.boot</groupId>
+    <artifactId>tims-client</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>com.essaid.grpc</groupId>
+            <artifactId>com.essaid.grpc.tims-grpc</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty-shaded</artifactId>
+            <version>1.58.0</version>
+        </dependency>
+
+<!--        <dependency>-->
+<!--            <groupId>net.devh</groupId>-->
+<!--            <artifactId>grpc-client-spring-boot-starter</artifactId>-->
+<!--            <version>2.14.0.RELEASE</version>-->
+<!--        </dependency>-->
+    </dependencies>
+
+</project>

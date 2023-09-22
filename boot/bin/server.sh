@@ -249,8 +249,6 @@ printUsage() {
   echo
 }
 
-set -x
-
 case "$1" in
   status)
     status

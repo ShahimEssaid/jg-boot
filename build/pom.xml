@@ -18,7 +18,8 @@
         <module>../parent</module>
         <module>../boot</module>
         <module>../dist</module>
-        <module>../dist-example</module>
+        <module>../tims-instance</module>
+        <module>../tims-grpc-impl</module>
     </modules>
 
 

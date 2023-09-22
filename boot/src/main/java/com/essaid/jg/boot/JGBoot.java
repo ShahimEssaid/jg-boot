@@ -1,6 +1,6 @@
 package com.essaid.jg.boot;
 
-import com.essaid.jg.boot.grcp.GrpcConfiguration;
+//import com.essaid.jg.boot.grcp.GrpcConfiguration;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.ExitCodeGenerator;
 import org.springframework.boot.SpringApplication;
@@ -11,7 +11,7 @@ import picocli.CommandLine;
 
 @SpringBootApplication
 @EnableConfigurationProperties
-@Import(GrpcConfiguration.class)
+//@Import(GrpcConfiguration.class)
 public class JGBoot implements CommandLineRunner, ExitCodeGenerator {
 
     private final CommandLine jgCli;

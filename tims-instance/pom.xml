@@ -13,6 +13,14 @@
         <relativePath>../dist</relativePath>
     </parent>
 
-    <artifactId>dist-example</artifactId>
+    <artifactId>com.essaid.jg.boot.tims-instance</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.essaid.jg.boot</groupId>
+            <artifactId>com.essaid.jg.boot.tims-grpc-impl</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
