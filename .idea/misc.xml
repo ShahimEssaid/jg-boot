@@ -17,6 +17,7 @@
     </option>
     <option name="ignoredFiles">
       <set>
+        <option value="$PROJECT_DIR$/tims-client/pom.xml" />
         <option value="$PROJECT_DIR$/tims-instance/pom.xml" />
       </set>
     </option>

@@ -9,7 +9,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="com.essaid.jg.boot.boot" />
         <module name="com.essaid.jg.boot.tims-grpc-impl" />
-        <module name="tims-client" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -23,6 +22,7 @@
       <module name="group1.boot-dist-example" target="11" />
       <module name="group1.com.essaid.jg.boot.boot-dist" target="11" />
       <module name="group1.com.essaid.jg.boot.boot-dist-example" target="11" />
+      <module name="tims-client" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

@@ -92,7 +92,7 @@
             <id>jg-dist-setup</id>
             <activation>
                 <file>
-                    <missing>bin/setup.sh</missing>
+                    <missing>bin/dist-setup.sh</missing>
                     <exists>src</exists>
                 </file>
 

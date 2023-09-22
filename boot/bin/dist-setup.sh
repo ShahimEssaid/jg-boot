@@ -27,6 +27,6 @@ if [[ -d jdk ]]; then
 fi
 
 # Sets up the server related "distribution" files.
-./mvnw -Pjg-setup org.apache.maven.plugins:maven-dependency-plugin:unpack@dist-setup
+./mvnw -Pjg-setup org.apache.maven.plugins:maven-dependency-plugin:unpack@jg-dist-setup
 
 
