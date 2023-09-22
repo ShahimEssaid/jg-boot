@@ -9,7 +9,6 @@
         <outputRelativeToContentRoot value="true" />
         <module name="com.essaid.jg.boot.boot" />
         <module name="com.essaid.jg.boot.tims-grpc-impl" />
-        <module name="com.essaid.jg.boot.tims-instance" />
         <module name="tims-client" />
       </profile>
     </annotationProcessing>
@@ -19,6 +18,7 @@
       <module name="com.essaid.jg.boot.boot-dist" target="11" />
       <module name="com.essaid.jg.boot.dist-example" target="11" />
       <module name="com.essaid.jg.boot.grpc-example" target="11" />
+      <module name="com.essaid.jg.boot.tims-instance" target="11" />
       <module name="dist-example" target="11" />
       <module name="group1.boot-dist-example" target="11" />
       <module name="group1.com.essaid.jg.boot.boot-dist" target="11" />
